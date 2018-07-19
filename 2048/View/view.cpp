@@ -117,14 +117,12 @@ void View::paintEvent(QPaintEvent *)  //paint
     QPainter painter(this);
     painter.setBrush(Qt::gray);
     painter.drawRect(this->rect());
-
     int i, j;
     this->resize(100+80*4,100+80*5);
     for(i=0;i<4;i++)
         for(j=0;j<4;j++)
         {
             std::string color = this->_spMatrix->getChildColor(i,j);
-
             if(color=="0")
             {
                 QPen pen;
@@ -152,9 +150,7 @@ void View::paintEvent(QPaintEvent *)  //paint
                 painter.setBrush(Qt::red);
                 painter.drawEllipse(40+80*j,40+80*i,40,40);
             }
-
         }
-
 }
 */
 
@@ -173,6 +169,8 @@ void View::paintEvent(QPaintEvent *ev)
     font.setBold(true);
     font.setPixelSize(35);
 
+    now_score->setText(QString::number(_spMatrix->getScore()));
+    best_score->setText(QString::number(_spMatrix->getBest()));
 
     for(i=0;i<4;i++)
         for(j=0;j<4;j++){
@@ -197,6 +195,7 @@ void View::paintEvent(QPaintEvent *ev)
         }
 
 }
+
 int View::get_color(int n)
 {
     int i=-1;

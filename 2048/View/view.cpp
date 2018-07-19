@@ -14,6 +14,11 @@ View::View(QWidget *parent) :  //ctor
 {
     ui->setupUi(this);
     this->setFixedSize(800,600);
+    
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background,QColor(255,222,173));
+    this->setPalette(palette);
+
 
     QFont font;
     font.setFamily("Consolas");

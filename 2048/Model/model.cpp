@@ -17,28 +17,14 @@ std::shared_ptr<SquareMatrix> Model::getMatrix()
 
 void Model::newLayout(int mode)
 {
-    int i, j, x, y;
-    qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+
     if(mode==1)
     {
-        i = qrand()%4;
-        j = qrand()%4;
-        x = qrand()%4;
-        y = qrand()%4;
-        while(x==i && y == j)
-        {
-            x = qrand()%4;
-            y = qrand()%4;
-        }
-        sp_Matrix->setChildNumber(i,j,2);
-        sp_Matrix->setChildColor(i,j);
-        sp_Matrix->setChildNumber(x,y,2);
-        sp_Matrix->setChildColor(x,y);
+        sp_Matrix->ResetMoode1();
     }
     if(mode==2)
     {
         sp_Matrix->setChildNumber(2,0,1);
-        sp_Matrix->setChildColor(2,0);
     }
 }
 
@@ -48,7 +34,6 @@ void Model::DirectionChange(int dir)
     if(dir==1)  //down
     {
         int array[4];
-        int result[4];
         for(i=0;i<4;i++)
         {
             for(j=0;j<4;j++)
@@ -75,6 +60,7 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1])
                     {
                         array[j]=array[j]*2;
+                        sp_Matrix->changeScore(array[j]);
                         for(l =j+1;l<3;l++)
                             array[l]=array[l+1];
                         array[3]=0;
@@ -93,7 +79,6 @@ void Model::DirectionChange(int dir)
     if(dir==2)  //up
     {
         int array[4];
-        int result[4];
         for(i=0;i<4;i++)
         {
             for(j=0;j<4;j++)
@@ -120,6 +105,7 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1])
                     {
                         array[j]=array[j]*2;
+                        sp_Matrix->changeScore(array[j]);
                         for(l =j+1;l<3;l++)
                             array[l]=array[l+1];
                         array[3]=0;
@@ -138,7 +124,6 @@ void Model::DirectionChange(int dir)
     if(dir==3)  //left
     {
         int array[4];
-        int result[4];
         for(i=0;i<4;i++)
         {
             for(j=0;j<4;j++)
@@ -165,6 +150,7 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1])
                     {
                         array[j]=array[j]*2;
+                        sp_Matrix->changeScore(array[j]);
                         for(l =j+1;l<3;l++)
                             array[l]=array[l+1];
                         array[3]=0;
@@ -183,7 +169,6 @@ void Model::DirectionChange(int dir)
     if(dir==4)  //right
     {
         int array[4];
-        int result[4];
         for(i=0;i<4;i++)
         {
             for(j=0;j<4;j++)
@@ -210,6 +195,7 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1])
                     {
                         array[j]=array[j]*2;
+                        sp_Matrix->changeScore(array[j]);
                         for(l =j+1;l<3;l++)
                             array[l]=array[l+1];
                         array[3]=0;
@@ -225,10 +211,6 @@ void Model::DirectionChange(int dir)
             x=qrand()%4;
         sp_Matrix->setChildNumber(x,0,2);
     }
-
-    for(i=0;i<4;i++)
-        for(j=0;j<4;j++)
-            sp_Matrix->setChildColor(i,j);
 }
 
 

@@ -5,6 +5,7 @@
 #include <QMainWindow>
 #include <QPainter>
 #include <QKeyEvent>
+#include <QLabel>
 #include <memory>
 #include "Common/square.h"
 #include "Common/etlbase.h"
@@ -46,6 +47,12 @@ private:
     std::shared_ptr<DirectionSink> _ptrDirectionSink;
     std::shared_ptr<ICommandBase> _ptrDirectionCommand;
     std::shared_ptr<ICommandBase> _ptrCommand;
+
+    QLabel *score_label;    //显示当前分数
+    QLabel *best_label;     //显示最高分数
+    QLabel *now_score;
+    QLabel *best_score;
+    int get_color(int n);
 };
 
 #endif // VIEW_H

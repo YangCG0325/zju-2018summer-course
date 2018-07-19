@@ -1,7 +1,11 @@
 #include "view.h"
 #include "ui_view.h"
 #include <QDebug>
+#include <QFont>
 
+QColor colors[11]{QColor(212,212,170),QColor(166,74,0),QColor(191,111,48),QColor(255,113,0),
+            QColor(255,149,64),QColor(255,177,115),QColor(255,169,0),QColor(191,143,48),
+            QColor(166,110,0),QColor(255,190,64),QColor(255,207,115)};
 
 View::View(QWidget *parent) :  //ctor
     QMainWindow(parent),
@@ -9,6 +13,32 @@ View::View(QWidget *parent) :  //ctor
 {
     ui->setupUi(this);
     this->setFixedSize(800,600);
+
+    QFont font;
+    font.setFamily("Consolas");
+    font.setBold(true);
+    font.setPixelSize(30);
+
+    score_label = new QLabel("SCORE",this);
+    score_label->setGeometry(20,20,200,50);
+    score_label->setAlignment(Qt::AlignCenter);
+    score_label->setFont(font);
+
+    best_label = new QLabel("BEST",this);
+    best_label->setGeometry(240,20,200,50);
+    best_label->setAlignment(Qt::AlignCenter);
+    best_label->setFont(font);
+
+    now_score = new QLabel("0",this);
+    now_score->setGeometry(20,70,200,50);
+    now_score->setAlignment(Qt::AlignCenter);
+    now_score->setFont(font);
+
+    best_score = new QLabel("0",this);
+    best_score->setGeometry(240,70,200,50);
+    best_score->setAlignment(Qt::AlignCenter);
+    best_score->setFont(font);
+
 
     _ptrViewProSink = std::make_shared<ViewProSinks>(ViewProSinks(this));
     _ptrViewSetSink = std::make_shared<ViewSetSink>(ViewSetSink(this));
@@ -132,31 +162,48 @@ void View::paintEvent(QPaintEvent *ev)
 {
     int i,j;
     QPainter painter(this);
-    QBrush brush(QColor(255,182,193));
+    QBrush brush(QColor(124,99,84));
     //brush.setColor();
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     painter.drawRect(90,190,370,370);
 
+    QFont font;
+    font.setFamily("Consolas");
+    font.setBold(true);
+    font.setPixelSize(35);
+
+
     for(i=0;i<4;i++)
         for(j=0;j<4;j++){
             if(this->_spMatrix->getChildNumber(i,j) == 0){
-                brush.setColor(QColor(139,155,85));
+                painter.setPen(Qt::NoPen);
+                brush.setColor(QColor(193,160,117));
                 painter.setBrush(brush);
                 painter.drawRoundedRect((100+(90*j)),(200+(90*i)),80,80,4,4);
 
             }
             else {
-                brush.setColor(QColor(173,216,230));
-                painter.setBrush(brush);
+                painter.setPen(Qt::NoPen);
+                brush.setColor(colors[get_color(this->_spMatrix->getChildNumber(i,j))]);
                 painter.setBrush(brush);
                 painter.drawRoundedRect((100+(90*j)),(200+(90*i)),80,80,4,4);
                 painter.setPen(QColor(0,0,0));
-                painter.drawText((100+(90*j)),(200+(90*i)),80,80,Qt::AlignCenter,QString::number(this->_spMatrix->getChildNumber(i,j),10));//(100+(90*i)),(200+(90*j)),80,80,Qt::AlignCenter,QString::number[i][j]);
-
+                painter.setFont(font);
+                painter.drawText((100+(90*j)),(200+(90*i)),80,80,Qt::AlignCenter,QString::number(this->_spMatrix->getChildNumber(i,j),10));
             }
 
 
         }
 
+}
+int View::get_color(int n)
+{
+    int i=-1;
+    n/=2;
+    while(n!=0){
+        i++;
+        n/=2;
+    }
+    return i;
 }

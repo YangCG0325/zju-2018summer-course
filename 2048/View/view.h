@@ -6,6 +6,7 @@
 #include <QPainter>
 #include <QKeyEvent>
 #include <QLabel>
+#include <QPushButton>
 #include <memory>
 #include "Common/square.h"
 #include "Common/etlbase.h"
@@ -25,7 +26,7 @@ class View : public QMainWindow
 {
     Q_OBJECT
 
-public: 
+public:
     explicit View(QWidget *parent = 0);
     ~View();
 
@@ -39,6 +40,8 @@ public:
     std::shared_ptr<ICommandNotification> getDirectionSink(void);
 
     void paintEvent(QPaintEvent*);
+private slots:
+    void restart_btn_press();
 private:
     Ui::View *ui;
     std::shared_ptr<SquareMatrix> _spMatrix;
@@ -48,10 +51,11 @@ private:
     std::shared_ptr<ICommandBase> _ptrDirectionCommand;
     std::shared_ptr<ICommandBase> _ptrCommand;
 
-    QLabel *score_label;    //显示当前分数
-    QLabel *best_label;     //显示最高分数
+    QLabel *score_label;
+    QLabel *best_label;
     QLabel *now_score;
     QLabel *best_score;
+    QPushButton *restart_btn;
     int get_color(int n);
 };
 

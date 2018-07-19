@@ -2,6 +2,7 @@
 #include "ui_view.h"
 #include <QDebug>
 #include <QFont>
+#include <QThread>
 
 QColor colors[11]{QColor(212,212,170),QColor(166,74,0),QColor(191,111,48),QColor(255,113,0),
             QColor(255,149,64),QColor(255,177,115),QColor(255,169,0),QColor(191,143,48),
@@ -38,6 +39,12 @@ View::View(QWidget *parent) :  //ctor
     best_score->setGeometry(240,70,200,50);
     best_score->setAlignment(Qt::AlignCenter);
     best_score->setFont(font);
+
+    restart_btn = new QPushButton("RESTART",this);
+    restart_btn->setGeometry(430,30,200,100);
+    restart_btn->setFont(font);
+
+    connect(restart_btn,SIGNAL(clicked(bool)),this,SLOT(restart_btn_press()));
 
 
     _ptrViewProSink = std::make_shared<ViewProSinks>(ViewProSinks(this));
@@ -111,48 +118,7 @@ std::shared_ptr<ICommandNotification> View::getDirectionSink(void)
 {
     return std::static_pointer_cast<ICommandNotification>(_ptrDirectionSink);
 }
-/*
-void View::paintEvent(QPaintEvent *)  //paint
-{
-    QPainter painter(this);
-    painter.setBrush(Qt::gray);
-    painter.drawRect(this->rect());
-    int i, j;
-    this->resize(100+80*4,100+80*5);
-    for(i=0;i<4;i++)
-        for(j=0;j<4;j++)
-        {
-            std::string color = this->_spMatrix->getChildColor(i,j);
-            if(color=="0")
-            {
-                QPen pen;
-                pen.setWidth(7);
-                pen.setBrush(Qt::black);
-                painter.setPen(pen);
-                painter.setBrush(Qt::white);
-                painter.drawEllipse(40+80*j,40+80*i,40,40);
-            }
-            else if(color=="2")
-            {
-                QPen pen;
-                pen.setWidth(7);
-                pen.setBrush(Qt::white);
-                painter.setPen(pen);
-                painter.setBrush(Qt::black);
-                painter.drawEllipse(40+80*j,40+80*i,40,40);
-            }
-            else
-            {
-                QPen pen;
-                pen.setWidth(7);
-                pen.setBrush(Qt::blue);
-                painter.setPen(pen);
-                painter.setBrush(Qt::red);
-                painter.drawEllipse(40+80*j,40+80*i,40,40);
-            }
-        }
-}
-*/
+
 
 void View::paintEvent(QPaintEvent *ev)
 {
@@ -190,10 +156,7 @@ void View::paintEvent(QPaintEvent *ev)
                 painter.setFont(font);
                 painter.drawText((100+(90*j)),(200+(90*i)),80,80,Qt::AlignCenter,QString::number(this->_spMatrix->getChildNumber(i,j),10));
             }
-
-
         }
-
 }
 
 int View::get_color(int n)
@@ -205,4 +168,9 @@ int View::get_color(int n)
         n/=2;
     }
     return i;
+}
+
+void View::restart_btn_press()
+{
+
 }

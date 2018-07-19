@@ -8,6 +8,8 @@ View::View(QWidget *parent) :  //ctor
     ui(new Ui::View)
 {
     ui->setupUi(this);
+    this->setFixedSize(800,600);
+
     _ptrViewProSink = std::make_shared<ViewProSinks>(ViewProSinks(this));
     _ptrViewSetSink = std::make_shared<ViewSetSink>(ViewSetSink(this));
     _ptrDirectionSink = std::make_shared<DirectionSink>(DirectionSink(this));

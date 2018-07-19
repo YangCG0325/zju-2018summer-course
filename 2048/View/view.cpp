@@ -14,6 +14,11 @@ View::View(QWidget *parent) :  //ctor
 {
     ui->setupUi(this);
     this->setFixedSize(800,600);
+    
+    QPalette palette(this->palette());
+    palette.setColor(QPalette::Background,QColor(255,222,173));
+    this->setPalette(palette);
+
 
     QFont font;
     font.setFamily("Consolas");
@@ -56,48 +61,6 @@ View::View(QWidget *parent) :  //ctor
 View::~View()
 {
     delete ui;
-}
-
-void View::mousePressEvent(QMouseEvent *e)
-{
-    mousePos=e->pos();
-}
-void View::mouseReleaseEvent(QMouseEvent *e)
-{
-
-    float dX = (float)(e->pos().x() - mousePos.x());
-    float dY = (float)(e->pos().y() - mousePos.y());
-    // 确定手势方向
-    if (abs(dX) > abs(dY))
-    {
-        if (dX < 0)//left
-        {
-            _ptrDirectionCommand->SetParameter(3);
-            _ptrDirectionCommand->Exec();
-            View::update();
-        }
-        else//right
-        {
-            _ptrDirectionCommand->SetParameter(4);
-            _ptrDirectionCommand->Exec();
-            View::update();
-        }
-    }
-    else
-    {
-        if (dY < 0)//up
-        {
-            _ptrDirectionCommand->SetParameter(2);
-            _ptrDirectionCommand->Exec();
-            View::update();
-        }
-        else//down
-        {
-            _ptrDirectionCommand->SetParameter(1);
-            _ptrDirectionCommand->Exec();
-            View::update();
-        }
-    }
 }
 
 void View::keyPressEvent(QKeyEvent *e)

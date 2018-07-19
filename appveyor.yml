@@ -1,0 +1,30 @@
+version: 1.0.{build}
+
+image: Visual Studio 2015
+
+install:
+   - set QTDIR=C:\Qt\5.9.5\msvc2015
+   - set PATH=%PATH%;%QTDIR%\bin
+   
+build_script:
+   - '"%QTDIR%\\bin\\qtenv2.bat"'
+   - '"C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86'
+   - cd C:\projects\game\2048
+   - qmake -project QT+=widgets core gui
+   - qmake
+   - nmake release
+   - cd release
+   - windeployqt --release 2048.exe
+   
+artifacts:
+  - path: 2048\release 
+    name: programme 
+deploy:
+  - provider: GitHub 
+    artifact: programme 
+    
+    auth_token:
+        secure: ps1KG3loDBJzc86Bgl+nBYq64zXdrBYIQKZ2OSU3J6xZfkBygncer469DbnqUYMA 
+    on:
+      branch: master 
+    IsGithubRelease: true 

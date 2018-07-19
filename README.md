@@ -1,2 +1,2 @@
-# game
-summer course project game 2048
+# 2048
+base game 2048 and some variation

@@ -25,12 +25,15 @@ class View;
 class View : public QMainWindow
 {
     Q_OBJECT
+    QPoint mousePos;
 
 public:
     explicit View(QWidget *parent = 0);
     ~View();
 
     void keyPressEvent(QKeyEvent *e);
+    void mousePressEvent(QMouseEvent *e);
+    void mouseReleaseEvent(QMouseEvent *e);
     void setMatrix(std::shared_ptr<SquareMatrix> spMatrix);  //connect to data
     void set_ptrCommand(std::shared_ptr<ICommandBase> ptrCommand); //connect to command ?
     void set_ptrDirection(std::shared_ptr<ICommandBase> ptrDirection);

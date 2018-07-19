@@ -30,7 +30,7 @@ void Model::newLayout(int mode)
 
 void Model::DirectionChange(int dir)
 {
-    int i, j, k, l, x;
+    int i, j, k, l, x, y;
     int flag;
     int array[4];
 
@@ -88,9 +88,13 @@ void Model::DirectionChange(int dir)
         {
             qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
             x=qrand()%4;
-            while(sp_Matrix->getChildNumber(0,x)!=0)
+            y=qrand()%4;
+            while(sp_Matrix->getChildNumber(x,y)!=0)
+            {
                 x=qrand()%4;
-            sp_Matrix->setChildNumber(0,x,2);
+                y=qrand()%4;
+            }
+            sp_Matrix->setChildNumber(x, y,2);
         }
     }
 
@@ -145,9 +149,13 @@ void Model::DirectionChange(int dir)
         {
             qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
             x=qrand()%4;
-            while(sp_Matrix->getChildNumber(3,x)!=0)
+            y=qrand()%4;
+            while(sp_Matrix->getChildNumber(x,y)!=0)
+            {
                 x=qrand()%4;
-            sp_Matrix->setChildNumber(3,x,2);
+                y=qrand()%4;
+            }
+            sp_Matrix->setChildNumber(x, y,2);
         }
     }
 
@@ -203,9 +211,13 @@ void Model::DirectionChange(int dir)
         {
             qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
             x=qrand()%4;
-            while(sp_Matrix->getChildNumber(x,3)!=0)
+            y=qrand()%4;
+            while(sp_Matrix->getChildNumber(x,y)!=0)
+            {
                 x=qrand()%4;
-            sp_Matrix->setChildNumber(x,3,2);
+                y=qrand()%4;
+            }
+            sp_Matrix->setChildNumber(x, y,2);
         }
     }
 
@@ -261,9 +273,13 @@ void Model::DirectionChange(int dir)
         {
             qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
             x=qrand()%4;
-            while(sp_Matrix->getChildNumber(x,0)!=0)
+            y=qrand()%4;
+            while(sp_Matrix->getChildNumber(x,y)!=0)
+            {
                 x=qrand()%4;
-            sp_Matrix->setChildNumber(x,0,2);
+                y=qrand()%4;
+            }
+            sp_Matrix->setChildNumber(x, y,2);
         }
     }
 }

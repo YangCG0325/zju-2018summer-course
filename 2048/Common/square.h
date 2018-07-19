@@ -2,44 +2,27 @@
 #define SQUARE_H
 
 #include <string>
+#include <QTime>
+#include <QtGlobal>
 
 class Square
 {
 private:
     int number;
-    std::string color;
 public:
     Square()
     {
         number = 0;
-        color = "0";
     }
 
     Square(int num)
     {
         number = num;
-        color="";
-        char str[10];
-        sprintf(str,"%d",number);
-        color+=str;
     }
 
     ~Square()
     {
 
-    }
-
-    void setColor()
-    {
-        color="";
-        char str[10];
-        sprintf(str,"%d",number);
-        color+=str;
-    }
-
-    std::string getColor()
-    {
-        return color;
     }
 
     void setNumber(int num)
@@ -55,6 +38,8 @@ public:
 class SquareMatrix
 {
 private:
+    int Score;
+    int Best;
     Square gamebody[4][4];
 
 public:
@@ -66,9 +51,10 @@ public:
             for(j=0;j<4;j++)
             {
                 gamebody[i][j].setNumber(0);
-                gamebody[i][j].setColor();
             }
         }
+        Score = 0;
+        Best = 0;
     }
 
     ~SquareMatrix()
@@ -86,25 +72,57 @@ public:
         return gamebody[row][col].getNumber();
     }
 
-    void setChildColor(int row, int col)
+    void changeScore(int add)
     {
-        gamebody[row][col].setColor();
+        Score+=add;
+        if(Score>Best)
+            Best=Score;
     }
 
-    std::string getChildColor(int row, int col)
+    int getScore()
     {
-        return gamebody[row][col].getColor();
+        return Score;
     }
 
-    void Reset()
+    int getBest()
     {
-        int i, j;
+        return Best;
+    }
+
+    void ResetMoode1()
+    {
+        int i, j, x, y;
         for(i=0;i<4;i++)
             for(j=0;j<4;j++)
             {
                 gamebody[i][j].setNumber(0);
-                gamebody[i][j].setColor();
             }
+        qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+        i = qrand()%4;
+        j = qrand()%4;
+        x = qrand()%4;
+        y = qrand()%4;
+        while(x==i && y == j)
+        {
+            x = qrand()%4;
+            y = qrand()%4;
+        }
+        setChildNumber(i,j,2);
+        setChildNumber(x,y,2);
+        Score=0;
     }
+    void ResetMode2()
+    {
+        int i, j, x, y;
+        for(i=0;i<4;i++)
+            for(j=0;j<4;j++)
+            {
+                gamebody[i][j].setNumber(0);
+            }
+
+        Score=0;
+
+    }
+
 };
 #endif // SQUARE_H

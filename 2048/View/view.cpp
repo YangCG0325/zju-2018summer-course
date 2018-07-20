@@ -20,7 +20,7 @@ View::View(QWidget *parent) :  //ctor
     this->setPalette(palette);
 
     QFont font;
-    font.setFamily("Consolas");
+    font.setFamily("Arial");
     font.setBold(true);
     font.setPixelSize(30);
 
@@ -47,6 +47,7 @@ View::View(QWidget *parent) :  //ctor
     restart_btn = new QPushButton("RESTART",this);
     restart_btn->setGeometry(430,30,200,100);
     restart_btn->setFont(font);
+    restart_btn->setStyleSheet("color:#FAF8F1;background-color:#917963");
 
     connect(restart_btn,SIGNAL(clicked(bool)),this,SLOT(restart_btn_press()));
 

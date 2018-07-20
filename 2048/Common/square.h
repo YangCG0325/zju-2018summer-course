@@ -41,6 +41,7 @@ private:
     int Score;
     int Best;
     Square gamebody[4][4];
+    int position[16];  //position change record in one operation
 
 public:
     SquareMatrix()
@@ -89,7 +90,24 @@ public:
         return Best;
     }
 
-    void ResetMoode1()
+    void setPos(int brick,int pos)
+    {
+        position[brick] = pos;
+    }
+
+    void resetPos()
+    {
+        int i;
+        position[i] = i;
+
+    }
+
+    int getPos(int brick)
+    {
+        return position[brick];
+    }
+
+    void ResetMoode1()  //classic mode reset
     {
         int i, j, x, y;
         for(i=0;i<4;i++)
@@ -111,9 +129,9 @@ public:
         setChildNumber(x,y,2);
         Score=0;
     }
-    void ResetMode2()
+    void ResetMode2()  //flappy mode reset
     {
-        int i, j, x, y;
+        int i, j;
         for(i=0;i<4;i++)
             for(j=0;j<4;j++)
             {
@@ -121,8 +139,6 @@ public:
             }
 
         Score=0;
-
     }
-
 };
 #endif // SQUARE_H

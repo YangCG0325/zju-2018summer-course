@@ -31,7 +31,7 @@ void Model::newLayout(int mode)
 
 void Model::DirectionChange(int dir)
 {
-    int i, j, k, l, x, y;
+    int i, j, k, l, x, y, num;
     int flag;
     int array[4];
     int postemp[4];
@@ -303,7 +303,11 @@ void Model::DirectionChange(int dir)
             x=qrand()%4;
             y=qrand()%4;
         }
-        sp_Matrix->setChildNumber(x, y,2);
+        num = qrand()%30;
+        if(num<=20)
+            sp_Matrix->setChildNumber(x, y, 2);
+        else
+            sp_Matrix->setChildNumber(x, y, 4);
         for(i=0;i<4;i++)
             for(j=0;j<4;j++)
             {

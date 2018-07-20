@@ -42,6 +42,8 @@ private:
     int Best;
     Square gamebody[4][4];
     int position[16];  //position change record in one operation
+    bool Lose;
+    bool Win;
 
 public:
     SquareMatrix()
@@ -56,6 +58,10 @@ public:
         }
         Score = 0;
         Best = 0;
+        for(i=0;i<16;i++)
+            position[i]=i;
+        Lose = 0;
+        Win = 0;
     }
 
     ~SquareMatrix()
@@ -99,10 +105,7 @@ public:
     {
         int i;
         for(i=0;i<16;i++)
-        {
             position[i] = i;
-        }
-
     }
 
     int getPos(int brick)
@@ -110,6 +113,25 @@ public:
         return position[brick];
     }
 
+    void setWin(bool s)
+    {
+        Win = s;
+    }
+
+    void setLose(bool s)
+    {
+        Lose = s;
+    }
+
+    bool LoseSignal()
+    {
+        return Lose;
+    }
+
+    bool WinSignal()
+    {
+        return Win;
+    }
     void ResetMoode1()  //classic mode reset
     {
         int i, j, x, y;
@@ -131,6 +153,8 @@ public:
         setChildNumber(i,j,2);
         setChildNumber(x,y,2);
         Score=0;
+        Win = 0;
+        Lose = 0;
     }
     void ResetMode2()  //flappy mode reset
     {

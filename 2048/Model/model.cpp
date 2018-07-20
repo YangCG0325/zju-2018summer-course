@@ -56,9 +56,7 @@ void Model::DirectionChange(int dir)
             else if(k==1)
             {
                 if(sp_Matrix->getChildNumber(3,i)==0)  //just one brick not equal to 0, can move only when end brick is 0
-                    flag=1;
-                for(j=0;j<4;j++)
-                    sp_Matrix->setChildNumber(3-j,i,array[j]);         
+                    flag=1;             
             }
             else
             {
@@ -78,23 +76,9 @@ void Model::DirectionChange(int dir)
                     flag=1;
                 if(k==3&&(sp_Matrix->getChildNumber(3,i)==0||sp_Matrix->getChildNumber(2,i)==0||sp_Matrix->getChildNumber(1,i)==0))
                     flag=1;
-
-                for(j=0;j<4;j++)  //assign new number
-                    sp_Matrix->setChildNumber(3-j,i,array[j]);
             }
-        }
-
-        if(flag==1)  //can move, then add new number to the matrix
-        {
-            qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-            x=qrand()%4;
-            y=qrand()%4;
-            while(sp_Matrix->getChildNumber(x,y)!=0)
-            {
-                x=qrand()%4;
-                y=qrand()%4;
-            }
-            sp_Matrix->setChildNumber(x, y,2);
+            for(j=0;j<4;j++)
+                sp_Matrix->setChildNumber(3-j,i,array[j]);
         }
     }
 
@@ -118,9 +102,7 @@ void Model::DirectionChange(int dir)
             else if(k==1)
             {
                 if(sp_Matrix->getChildNumber(0,i)==0)  //just one brick not equal to 0, can move only when end brick is 0
-                    flag=1;
-                for(j=0;j<4;j++)
-                    sp_Matrix->setChildNumber(j,i,array[j]);              
+                    flag=1;              
             }
             else
             {
@@ -139,23 +121,10 @@ void Model::DirectionChange(int dir)
                 if(k==2&&(sp_Matrix->getChildNumber(0,i)==0||sp_Matrix->getChildNumber(1,i)==0))
                     flag=1;
                 if(k==3&&(sp_Matrix->getChildNumber(0,i)==0||sp_Matrix->getChildNumber(1,i)==0||sp_Matrix->getChildNumber(2,i)==0))
-                    flag=1;
-
-                for(j=0;j<4;j++)
-                    sp_Matrix->setChildNumber(j,i,array[j]);
+                    flag=1;            
             }
-        }
-        if(flag==1)
-        {
-            qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-            x=qrand()%4;
-            y=qrand()%4;
-            while(sp_Matrix->getChildNumber(x,y)!=0)
-            {
-                x=qrand()%4;
-                y=qrand()%4;
-            }
-            sp_Matrix->setChildNumber(x, y,2);
+            for(j=0;j<4;j++)
+                sp_Matrix->setChildNumber(j,i,array[j]);
         }
     }
 
@@ -179,9 +148,7 @@ void Model::DirectionChange(int dir)
             else if(k==1)
             {
                 if(sp_Matrix->getChildNumber(i,0)==0)  //just one brick not equal to 0, can move only when end brick is 0
-                    flag=1;
-                for(j=0;j<4;j++)
-                    sp_Matrix->setChildNumber(i,j,array[j]);           
+                    flag=1;          
             }
             else
             {
@@ -197,27 +164,13 @@ void Model::DirectionChange(int dir)
                         array[3]=0;
                     }
                 }
-
                 if(k==2&&(sp_Matrix->getChildNumber(i,0)==0||sp_Matrix->getChildNumber(i,1)==0))
                     flag=1;
                 if(k==3&&(sp_Matrix->getChildNumber(i,0)==0||sp_Matrix->getChildNumber(i,1)==0||sp_Matrix->getChildNumber(i,2)==0))
-                    flag=1;
-
-                for(j=0;j<4;j++)
-                    sp_Matrix->setChildNumber(i,j,array[j]);
+                    flag=1;            
             }
-        }
-        if(flag==1)
-        {
-            qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
-            x=qrand()%4;
-            y=qrand()%4;
-            while(sp_Matrix->getChildNumber(x,y)!=0)
-            {
-                x=qrand()%4;
-                y=qrand()%4;
-            }
-            sp_Matrix->setChildNumber(x, y,2);
+            for(j=0;j<4;j++)
+                sp_Matrix->setChildNumber(i,j,array[j]);
         }
     }
 
@@ -229,7 +182,6 @@ void Model::DirectionChange(int dir)
             for(j=0;j<4;j++)
                 array[j]=0;
             k=0;
-
             for(j=0;j<4;j++)
             {
                 if(sp_Matrix->getChildNumber(i,3-j)!=0)
@@ -241,9 +193,7 @@ void Model::DirectionChange(int dir)
             else if(k==1)
             {
                 if(sp_Matrix->getChildNumber(i,3)==0)  //just one brick not equal to 0, can move only when end brick is 0
-                    flag=1;
-                for(j=0;j<4;j++)
-                    sp_Matrix->setChildNumber(i,3-j,array[j]);              
+                    flag=1;              
             }
             else
             {
@@ -259,28 +209,26 @@ void Model::DirectionChange(int dir)
                         array[3]=0;
                     }
                 }
-
                 if(k==2&&(sp_Matrix->getChildNumber(i,3)==0||sp_Matrix->getChildNumber(i,2)==0))
                     flag=1;
                 if(k==3&&(sp_Matrix->getChildNumber(i,3)==0||sp_Matrix->getChildNumber(i,2)==0||sp_Matrix->getChildNumber(i,1)==0))
                     flag=1;
-
-                for(j=0;j<4;j++)
-                    sp_Matrix->setChildNumber(i,3-j,array[j]);
             }
+            for(j=0;j<4;j++)
+                sp_Matrix->setChildNumber(i,3-j,array[j]);
         }
-        if(flag==1)
+    }  
+    if(flag==1)  //can move, then add new number to the matrix
+    {
+        qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
+        x=qrand()%4;
+        y=qrand()%4;
+        while(sp_Matrix->getChildNumber(x,y)!=0)
         {
-            qsrand(QTime(0,0,0).secsTo(QTime::currentTime()));
             x=qrand()%4;
             y=qrand()%4;
-            while(sp_Matrix->getChildNumber(x,y)!=0)
-            {
-                x=qrand()%4;
-                y=qrand()%4;
-            }
-            sp_Matrix->setChildNumber(x, y,2);
         }
+        sp_Matrix->setChildNumber(x, y,2);
     }
 }
 

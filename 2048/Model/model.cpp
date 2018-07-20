@@ -93,7 +93,7 @@ void Model::DirectionChange(int dir)
                             //
                             if(array[l+1]!=0)
                             {
-                                sp_Matrix->setPos(4*(2-l)+i,4*(3-l)+i);
+                                sp_Matrix->setPos(postemp[l+1],4*(3-l)+i);
                             }
                             //
                         }
@@ -177,7 +177,7 @@ void Model::DirectionChange(int dir)
                             //
                             if(array[l+1]!=0)
                             {
-                                sp_Matrix->setPos(4*(l+1)+i,4*(l)+i);
+                                sp_Matrix->setPos(postemp[l+1],4*(l)+i);
                             }
                             //
                         }
@@ -260,7 +260,7 @@ void Model::DirectionChange(int dir)
                             //
                             if(array[l+1]!=0)
                             {
-                                sp_Matrix->setPos(4*i+(l+1),4*i+(l));
+                                sp_Matrix->setPos(postemp[l+1],4*i+(l));
                             }
                             //
                         }
@@ -344,7 +344,7 @@ void Model::DirectionChange(int dir)
                             //
                             if(array[l+1]!=0)
                             {
-                                sp_Matrix->setPos(4*i+(2-l),4*i+(3-l));
+                                sp_Matrix->setPos(postemp[l+1],4*i+(3-l));
                             }
                             //
                         }

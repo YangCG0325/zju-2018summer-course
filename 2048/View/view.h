@@ -60,6 +60,9 @@ private:
     QLabel *best_score;
     QPushButton *restart_btn;
     int get_color(int n);
+    QLabel *square[16];
+public:
+    void paint_square();
 };
 
 #endif // VIEW_H

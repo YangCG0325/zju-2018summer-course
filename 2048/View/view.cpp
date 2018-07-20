@@ -208,17 +208,14 @@ void View::paint_square()
 
     sleep(200);
 
+    now_score->setText(QString::number(_spMatrix->getScore()));
+    best_score->setText(QString::number(_spMatrix->getBest()));
+
     for(i=0;i<4;i++)
         for(j=0;j<4;j++)
         {
             if(this->_spMatrix->getChildNumber(i,j) == 0)
-            {/*
-
-                square[4*i+j]->setGeometry((100+(90*j)),(200+(90*i)),80,80);
-                square[4*i+j]->setText("");
-                palette.setColor(QPalette::Background,QColor(193,160,117));
-                square[4*i+j]->setAutoFillBackground(true);
-                square[4*i+j]->setPalette(palette);*/
+            {
                 square[4*i+j]->hide();
             }
             else
@@ -242,21 +239,17 @@ void View::paintEvent(QPaintEvent *ev)
     int i,j;
     QPainter painter(this);
     QBrush brush(QColor(124,99,84));
-    //brush.setColor();
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     painter.drawRect(90,190,370,370);
-    //painter.begin();
     for(i=0;i<4;i++)
-            for(j=0;j<4;j++)
-            {
-                    painter.setPen(Qt::NoPen);
-                    brush.setColor(QColor(193,160,117));
-                    painter.setBrush(brush);
-                    painter.drawRoundedRect((100+(90*j)),(200+(90*i)),80,80,4,4);
-
-             }
-    //painter.end();
+        for(j=0;j<4;j++)
+        {
+            painter.setPen(Qt::NoPen);
+            brush.setColor(QColor(193,160,117));
+            painter.setBrush(brush);
+            painter.drawRoundedRect((100+(90*j)),(200+(90*i)),80,80,4,4);
+         }
 }
 
 int View::get_color(int n)
@@ -274,5 +267,5 @@ void View::restart_btn_press()
 {
     _ptrCommand->SetParameter(1);
     _ptrCommand->Exec();
-    this->update();
+    paint_square();
 }

@@ -21,7 +21,7 @@ void App::run()
     viewmodel->AddPropertyNotification(view.getPtrViewProSink());  //property change ?
     viewmodel->AddCommandNotification(view.getPtrViewSetSink());  //command ?
     viewmodel->AddCommandNotification(view.getDirectionSink());
-
+    view.paint_square();
     st.set_ptrCommand(std::static_pointer_cast<ICommandBase>(this->sp_startcommand)); //connect App and StartPage' s command?
     st.show();
 }

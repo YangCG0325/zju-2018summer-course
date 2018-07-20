@@ -13,12 +13,17 @@ startwindow::startwindow(QWidget *parent) :
     font.setBold(true);
     font.setPixelSize(65);
 
-    logo_label=new QLabel("2048",this);
-   // logo_label->setPixmap(QPixmap("./logo.png"));
-    logo_label->setGeometry(0,0,400,150);
-    logo_label->setFont(font);
-    logo_label->setAlignment(Qt::AlignCenter);
-    logo_label->setStyleSheet("color:#746D65");
+    this->setWindowTitle("2048");
+
+//    logo_label=new QLabel("2048",this);
+//   // logo_label->setPixmap(QPixmap("./logo.png"));
+//    logo_label->setGeometry(0,0,400,150);
+//    logo_label->setFont(font);
+//    logo_label->setAlignment(Qt::AlignCenter);
+//    logo_label->setStyleSheet("color:#746D65");
+    logo_label = new QLabel(this);
+    logo_label->setPixmap(QPixmap("C:\\Users\\apple\\Documents\\game\\musicgif\\logo.png"));
+    logo_label->setGeometry(40,0,400,150);
 
     font.setPixelSize(26);
     start_btn=new QPushButton("START",this);
@@ -51,12 +56,9 @@ void startwindow::set_ptrCommand(std::shared_ptr<ICommandBase> ptrCommand)
 void startwindow::start_btn_press()
 {
     _ptrCommand->Exec();
-//    this->close();
-//    game=new gamewindow(this);
-//    game->show();
+
 }
 void startwindow::exit_btn_press()
 {
     qApp->exit(0);
-//    this->close();
 }

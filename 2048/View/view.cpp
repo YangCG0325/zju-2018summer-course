@@ -10,6 +10,8 @@ QColor colors[11]{QColor(212,212,170),QColor(166,74,0),QColor(191,111,48),QColor
             QColor(255,149,64),QColor(255,177,115),QColor(255,169,0),QColor(191,143,48),
             QColor(166,110,0),QColor(255,190,64),QColor(255,207,115)};
 
+int View::emoji=0;
+
 View::View(QWidget *parent) :  //ctor
     QMainWindow(parent),
     ui(new Ui::View)
@@ -17,6 +19,9 @@ View::View(QWidget *parent) :  //ctor
     ui->setupUi(this);
     this->setFixedSize(800,600);
     this->setFocusPolicy(Qt::StrongFocus);
+
+    this->setWindowTitle("2048");
+
 
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background,QColor(255,222,173));
@@ -54,6 +59,15 @@ View::View(QWidget *parent) :  //ctor
     restart_btn->setStyleSheet("color:#FAF8F1;background-color:#917963");
     restart_btn->setFocusPolicy(Qt::NoFocus);
 
+    emoji_btn = new QPushButton("Funny Mode",this);
+    emoji_btn->setGeometry(500,200,200,100);
+    emoji_btn->setFont(font);
+    emoji_btn->setStyleSheet("color:#FAF8F1;background-color:#917963");
+    emoji_btn->setFocusPolicy(Qt::NoFocus);
+
+    emoji=0;
+
+
     int i, j;
     for(i=0;i<4;i++)
         for(j=0;j<4;j++)
@@ -68,7 +82,14 @@ View::View(QWidget *parent) :  //ctor
         group.addAnimation(anim[i]);
     }
 
+    for(int i=0;i<11;i++)
+    {
+        pic[i]=new QMovie(tr("C:\\Users\\apple\\Documents\\game\\musicgif\\%1.gif").arg(i+2));
+        pic[i]->setScaledSize(QSize(80,80));
+     }
+
     connect(restart_btn,SIGNAL(clicked(bool)),this,SLOT(restart_btn_press()));
+    connect(emoji_btn,SIGNAL(clicked(bool)),this,SLOT(emoji_btn_press()));
 
     _ptrViewProSink = std::make_shared<ViewProSinks>(ViewProSinks(this));
     _ptrViewSetSink = std::make_shared<ViewSetSink>(ViewSetSink(this));
@@ -217,20 +238,34 @@ void View::paint_square()
     for(i=0;i<4;i++)
         for(j=0;j<4;j++)
         {
-            if(this->_spMatrix->getChildNumber(i,j) == 0)
+            if(emoji==0)
             {
-                square[4*i+j]->hide();
+                if(this->_spMatrix->getChildNumber(i,j) == 0)
+                     square[4*i+j]->hide();
+                else
+                {
+                    square[4*i+j]->setGeometry((100+(90*j)),(200+(90*i)),80,80);
+                    square[4*i+j]->setText(QString::number(this->_spMatrix->getChildNumber(i,j)));
+                    palette.setColor(QPalette::Background,colors[get_color(this->_spMatrix->getChildNumber(i,j))]);
+                    square[4*i+j]->setAutoFillBackground(true);
+                    square[4*i+j]->setAlignment(Qt::AlignCenter);
+                    square[4*i+j]->setPalette(palette);
+                    square[4*i+j]->setFont(font);
+                    square[4*i+j]->show();
+                }
             }
-            else
+            else if(emoji==1)
             {
-                square[4*i+j]->setGeometry((100+(90*j)),(200+(90*i)),80,80);
-                square[4*i+j]->setText(QString::number(this->_spMatrix->getChildNumber(i,j)));
-                palette.setColor(QPalette::Background,colors[get_color(this->_spMatrix->getChildNumber(i,j))]);
-                square[4*i+j]->setAutoFillBackground(true);
-                square[4*i+j]->setAlignment(Qt::AlignCenter);
-                square[4*i+j]->setPalette(palette);
-                square[4*i+j]->setFont(font);
-                square[4*i+j]->show();
+               if(this->_spMatrix->getChildNumber(i,j) == 0)
+                   square[4*i+j]->hide();
+               else
+               {
+                   square[4*i+j]->setGeometry((100+(90*j)),(200+(90*i)),80,80);
+                   square[4*i+j]->setMovie(pic[get_color(this->_spMatrix->getChildNumber(i,j))]);
+
+                   pic[get_color(this->_spMatrix->getChildNumber(i,j))]->start();
+                   square[4*i+j]->show();
+               }
             }
         }
     if(_spMatrix->LoseSignal()==1)
@@ -279,6 +314,14 @@ int View::get_color(int n)
 
 void View::restart_btn_press()
 {
+    emoji=0;
+    _ptrCommand->SetParameter(1);
+    _ptrCommand->Exec();
+    paint_square();
+}
+void View::emoji_btn_press()
+{
+    emoji=1;
     _ptrCommand->SetParameter(1);
     _ptrCommand->Exec();
     paint_square();

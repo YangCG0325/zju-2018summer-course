@@ -16,6 +16,7 @@ View::View(QWidget *parent) :  //ctor
 {
     ui->setupUi(this);
     this->setFixedSize(800,600);
+    this->setFocusPolicy(Qt::StrongFocus);
 
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background,QColor(255,222,173));
@@ -51,6 +52,7 @@ View::View(QWidget *parent) :  //ctor
     restart_btn->setGeometry(430,30,200,100);
     restart_btn->setFont(font);
     restart_btn->setStyleSheet("color:#FAF8F1;background-color:#917963");
+    restart_btn->setFocusPolicy(Qt::NoFocus);
 
     int i, j;
     for(i=0;i<4;i++)

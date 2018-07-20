@@ -3,6 +3,7 @@
 #include <QDebug>
 #include <QFont>
 #include <QThread>
+#include <memory>
 
 QColor colors[11]{QColor(212,212,170),QColor(166,74,0),QColor(191,111,48),QColor(255,113,0),
             QColor(255,149,64),QColor(255,177,115),QColor(255,169,0),QColor(191,143,48),
@@ -18,6 +19,7 @@ View::View(QWidget *parent) :  //ctor
     QPalette palette(this->palette());
     palette.setColor(QPalette::Background,QColor(255,222,173));
     this->setPalette(palette);
+
 
     QFont font;
     font.setFamily("Arial");
@@ -48,14 +50,21 @@ View::View(QWidget *parent) :  //ctor
     restart_btn->setGeometry(430,30,200,100);
     restart_btn->setFont(font);
     restart_btn->setStyleSheet("color:#FAF8F1;background-color:#917963");
-    
-    for(int i=0;i<4;i++)
-        for(int j=0;j<4;j++)
-            square[4*i+j]=new QLabel(this);
 
+    int i, j;
+    for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
+        {
+            square[4*i+j]=new QLabel(this);
+            square[4*i+j]->raise();
+        }
+    for(i=0;i<16;i++)
+    {
+        anim[i] = new QPropertyAnimation(square[i],"pos");
+        group.addAnimation(anim[i]);
+    }
 
     connect(restart_btn,SIGNAL(clicked(bool)),this,SLOT(restart_btn_press()));
-
 
     _ptrViewProSink = std::make_shared<ViewProSinks>(ViewProSinks(this));
     _ptrViewSetSink = std::make_shared<ViewSetSink>(ViewSetSink(this));
@@ -66,6 +75,13 @@ View::View(QWidget *parent) :  //ctor
 View::~View()
 {
     delete ui;
+}
+
+void View::sleep(unsigned int msec)
+{
+    QTime dieTime = QTime::currentTime().addMSecs(msec);
+    while( QTime::currentTime() < dieTime )
+        QCoreApplication::processEvents(QEventLoop::AllEvents, 100);
 }
 
 void View::mousePressEvent(QMouseEvent *e)
@@ -85,14 +101,12 @@ void View::mouseReleaseEvent(QMouseEvent *e)
             _ptrDirectionCommand->SetParameter(3);
             _ptrDirectionCommand->Exec();
             paint_square();
-            View::update();
         }
         else//right
         {
             _ptrDirectionCommand->SetParameter(4);
             _ptrDirectionCommand->Exec();
             paint_square();
-            View::update();
         }
     }
     else
@@ -102,14 +116,12 @@ void View::mouseReleaseEvent(QMouseEvent *e)
             _ptrDirectionCommand->SetParameter(2);
             _ptrDirectionCommand->Exec();
              paint_square();
-            View::update();
         }
         else//down
         {
             _ptrDirectionCommand->SetParameter(1);
             _ptrDirectionCommand->Exec();
             paint_square();
-            View::update();
         }
     }
 }
@@ -121,28 +133,24 @@ void View::keyPressEvent(QKeyEvent *e)
         _ptrDirectionCommand->SetParameter(1);
         _ptrDirectionCommand->Exec();
          paint_square();
-        View::update();
     }
     if(e->key()==Qt::Key_W||e->key()==Qt::Key::Key_Up)
     {
         _ptrDirectionCommand->SetParameter(2);
         _ptrDirectionCommand->Exec();
          paint_square();
-        View::update();
     }
     if(e->key()==Qt::Key_A||e->key()==Qt::Key::Key_Left)
     {
         _ptrDirectionCommand->SetParameter(3);
         _ptrDirectionCommand->Exec();
          paint_square();
-        View::update();
     }
     if(e->key()==Qt::Key_D||e->key()==Qt::Key::Key_Right)
     {
         _ptrDirectionCommand->SetParameter(4);
         _ptrDirectionCommand->Exec();
          paint_square();
-        View::update();
     }
 
 
@@ -178,6 +186,8 @@ std::shared_ptr<ICommandNotification> View::getDirectionSink(void)
 {
     return std::static_pointer_cast<ICommandNotification>(_ptrDirectionSink);
 }
+
+
 void View::paint_square()
 {
     QFont font;
@@ -186,18 +196,30 @@ void View::paint_square()
     font.setPixelSize(35);
 
     QPalette palette;
-  
 
-    for(int i=0;i<4;i++)
-        for(int j=0;j<4;j++)
+    int i, j;
+    for(i=0;i<16;i++)
+    {
+        anim[i]->setDuration(150);
+        anim[i]->setStartValue(QPoint(100+90*(i%4),200+90*(i/4)));
+        anim[i]->setEndValue(QPoint(100+90*(_spMatrix->getPos(i)%4),200+90*(_spMatrix->getPos(i)/4)));
+    }
+    group.start();
+
+    sleep(200);
+
+    for(i=0;i<4;i++)
+        for(j=0;j<4;j++)
         {
             if(this->_spMatrix->getChildNumber(i,j) == 0)
-            {
+            {/*
+
                 square[4*i+j]->setGeometry((100+(90*j)),(200+(90*i)),80,80);
                 square[4*i+j]->setText("");
                 palette.setColor(QPalette::Background,QColor(193,160,117));
                 square[4*i+j]->setAutoFillBackground(true);
-                square[4*i+j]->setPalette(palette);
+                square[4*i+j]->setPalette(palette);*/
+                square[4*i+j]->hide();
             }
             else
             {
@@ -208,6 +230,7 @@ void View::paint_square()
                 square[4*i+j]->setAlignment(Qt::AlignCenter);
                 square[4*i+j]->setPalette(palette);
                 square[4*i+j]->setFont(font);
+                square[4*i+j]->show();
             }
         }
 
@@ -215,41 +238,25 @@ void View::paint_square()
 
 void View::paintEvent(QPaintEvent *ev)
 {
-   // int i,j;
+    Q_UNUSED(ev);
+    int i,j;
     QPainter painter(this);
     QBrush brush(QColor(124,99,84));
     //brush.setColor();
     painter.setBrush(brush);
     painter.setPen(Qt::NoPen);
     painter.drawRect(90,190,370,370);
+    //painter.begin();
+    for(i=0;i<4;i++)
+            for(j=0;j<4;j++)
+            {
+                    painter.setPen(Qt::NoPen);
+                    brush.setColor(QColor(193,160,117));
+                    painter.setBrush(brush);
+                    painter.drawRoundedRect((100+(90*j)),(200+(90*i)),80,80,4,4);
 
-   // QFont font;
-   // font.setFamily("Consolas");
-   // font.setBold(true);
-   // font.setPixelSize(35);
-
-//     now_score->setText(QString::number(_spMatrix->getScore()));
-//     best_score->setText(QString::number(_spMatrix->getBest()));
-
-//     for(i=0;i<4;i++)
-//         for(j=0;j<4;j++){
-//             if(this->_spMatrix->getChildNumber(i,j) == 0){
-//                 painter.setPen(Qt::NoPen);
-//                 brush.setColor(QColor(193,160,117));
-//                 painter.setBrush(brush);
-//                 painter.drawRoundedRect((100+(90*j)),(200+(90*i)),80,80,4,4);
-
-//             }
-//             else {
-//                 painter.setPen(Qt::NoPen);
-//                 brush.setColor(colors[get_color(this->_spMatrix->getChildNumber(i,j))]);
-//                 painter.setBrush(brush);
-//                 painter.drawRoundedRect((100+(90*j)),(200+(90*i)),80,80,4,4);
-//                 painter.setPen(QColor(0,0,0));
-//                 painter.setFont(font);
-//                 painter.drawText((100+(90*j)),(200+(90*i)),80,80,Qt::AlignCenter,QString::number(this->_spMatrix->getChildNumber(i,j),10));
-//             }
-//         }
+             }
+    //painter.end();
 }
 
 int View::get_color(int n)
@@ -265,5 +272,7 @@ int View::get_color(int n)
 
 void View::restart_btn_press()
 {
-
+    _ptrCommand->SetParameter(1);
+    _ptrCommand->Exec();
+    this->update();
 }

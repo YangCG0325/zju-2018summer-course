@@ -13,6 +13,8 @@
 #include "View/ViewSinks/viewprosinks.h"
 #include "View/ViewSinks/viewsetsink.h"
 #include "View/ViewSinks/directionsink.h"
+#include <QPropertyAnimation>
+#include <QParallelAnimationGroup>
 
 class ViewProSinks;
 class ViewSetSink;
@@ -43,6 +45,9 @@ public:
     std::shared_ptr<ICommandNotification> getDirectionSink(void);
 
     void paintEvent(QPaintEvent*);
+    void Animation();
+    void sleep(unsigned int msec);
+    void paint_square();
 private slots:
     void restart_btn_press();
 private:
@@ -61,8 +66,8 @@ private:
     QPushButton *restart_btn;
     int get_color(int n);
     QLabel *square[16];
-public:
-    void paint_square();
+    QPropertyAnimation *anim[16];
+    QParallelAnimationGroup group;
 };
 
 #endif // VIEW_H

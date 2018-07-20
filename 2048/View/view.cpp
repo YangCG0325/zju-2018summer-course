@@ -4,6 +4,7 @@
 #include <QFont>
 #include <QThread>
 #include <memory>
+#include <QMessageBox>
 
 QColor colors[11]{QColor(212,212,170),QColor(166,74,0),QColor(191,111,48),QColor(255,113,0),
             QColor(255,149,64),QColor(255,177,115),QColor(255,169,0),QColor(191,143,48),
@@ -58,6 +59,7 @@ View::View(QWidget *parent) :  //ctor
             square[4*i+j]=new QLabel(this);
             square[4*i+j]->raise();
         }
+
     for(i=0;i<16;i++)
     {
         anim[i] = new QPropertyAnimation(square[i],"pos");
@@ -88,6 +90,7 @@ void View::mousePressEvent(QMouseEvent *e)
 {
     mousePos=e->pos();
 }
+
 void View::mouseReleaseEvent(QMouseEvent *e)
 {
 
@@ -152,8 +155,6 @@ void View::keyPressEvent(QKeyEvent *e)
         _ptrDirectionCommand->Exec();
          paint_square();
     }
-
-
 }
 
 void View::setMatrix(std::shared_ptr<SquareMatrix> spMatrix)  //connect data to this
@@ -230,7 +231,18 @@ void View::paint_square()
                 square[4*i+j]->show();
             }
         }
-
+    if(_spMatrix->LoseSignal()==1)
+    {
+        QMessageBox MSG;
+        MSG.setText("You Lose!");
+        MSG.exec();
+    }
+    if(_spMatrix->WinSignal()==1)
+    {
+        QMessageBox MSG;
+        MSG.setText("You Win!");
+        MSG.exec();
+    }
 }
 
 void View::paintEvent(QPaintEvent *ev)

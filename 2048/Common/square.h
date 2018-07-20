@@ -98,7 +98,10 @@ public:
     void resetPos()
     {
         int i;
-        position[i] = i;
+        for(i=0;i<16;i++)
+        {
+            position[i] = i;
+        }
 
     }
 

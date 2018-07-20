@@ -17,11 +17,14 @@ void App::run()
     view.setMatrix(viewmodel->getMatrix());  //connect view and data matrix
     view.set_ptrDirection(viewmodel->getDirectionCommand());
 
+
     viewmodel->Exec_layout_command(1);  //set game mode
     viewmodel->AddPropertyNotification(view.getPtrViewProSink());  //property change ?
     viewmodel->AddCommandNotification(view.getPtrViewSetSink());  //command ?
     viewmodel->AddCommandNotification(view.getDirectionSink());
     view.paint_square();
+
+
     st.set_ptrCommand(std::static_pointer_cast<ICommandBase>(this->sp_startcommand)); //connect App and StartPage' s command?
     st.show();
 }

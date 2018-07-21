@@ -68,6 +68,8 @@ private:
     QLabel *square[16];
     QPropertyAnimation *anim[16];
     QParallelAnimationGroup group;
+    QPropertyAnimation *comeup[16];
+    QParallelAnimationGroup GroupComeUp;
 };
 
 #endif // VIEW_H

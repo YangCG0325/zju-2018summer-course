@@ -17,7 +17,6 @@
 #include <QMovie>
 
 class ViewProSinks;
-class ViewSetSink;
 class DirectionSink;
 
 namespace Ui {
@@ -54,7 +53,6 @@ private:
     Ui::View *ui;
     std::shared_ptr<SquareMatrix> _spMatrix;
     std::shared_ptr<ViewProSinks> _ptrViewProSink;
-    std::shared_ptr<ViewSetSink> _ptrViewSetSink;
     std::shared_ptr<DirectionSink> _ptrDirectionSink;
     std::shared_ptr<ICommandBase> _ptrDirectionCommand;
     std::shared_ptr<ICommandBase> _ptrCommand;

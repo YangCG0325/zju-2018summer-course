@@ -103,7 +103,6 @@ View::View(QWidget *parent) :  //ctor
     connect(emoji_btn,SIGNAL(clicked(bool)),this,SLOT(emoji_btn_press()));
 
     _ptrViewProSink = std::make_shared<ViewProSinks>(ViewProSinks(this));
-    _ptrViewSetSink = std::make_shared<ViewSetSink>(ViewSetSink(this));
     _ptrDirectionSink = std::make_shared<DirectionSink>(DirectionSink(this));
     
 }

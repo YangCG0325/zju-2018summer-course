@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>musicgif/2.gif</file>
+        <file>musicgif/3.gif</file>
+        <file>musicgif/4.gif</file>
+        <file>musicgif/5.gif</file>
+        <file>musicgif/6.gif</file>
+        <file>musicgif/7.gif</file>
+        <file>musicgif/8.gif</file>
+        <file>musicgif/9.gif</file>
+        <file>musicgif/10.gif</file>
+        <file>musicgif/11.gif</file>
+        <file>musicgif/12.gif</file>
+        <file>musicgif/logo.png</file>
+    </qresource>
+</RCC>

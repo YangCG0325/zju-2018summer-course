@@ -9,7 +9,7 @@
 #include <QMessageBox>
 
 
-class Model : public Proxy_PropertyNotification<Model>, public Proxy_CommandNotification<Model>
+class Model : public Proxy_PropertyNotification<Model> 
 {
 public:
     Model();

@@ -9,7 +9,7 @@ DirectionSink::DirectionSink(View *ptr)
 
 void DirectionSink::OnCommandComplete(const std::string& str, bool bOK)
 {
-    if(str=="Direction")
+    if(str=="Direction"||str=="layoutCommand")
     {
         if(bOK==false)
         {

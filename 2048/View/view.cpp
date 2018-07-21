@@ -22,7 +22,8 @@ View::View(QWidget *parent) :  //ctor
     this->setFocusPolicy(Qt::StrongFocus);
 
     QPalette palette(this->palette());
-    palette.setColor(QPalette::Background,QColor(255,222,173));
+    palette.setBrush(QPalette::Background,QBrush(QPixmap("://musicgif/background.jpg")));
+   // palette.setColor(QPalette::Background,QColor(255,222,173));
     this->setPalette(palette);
 
 
@@ -30,35 +31,42 @@ View::View(QWidget *parent) :  //ctor
     font.setFamily("Arial");
     font.setBold(true);
     font.setPixelSize(30);
+                
+    palette.setBrush(QPalette::Background, Qt::NoBrush);
+    palette.setColor(QPalette::WindowText, QColor(255,248,220));
 
     score_label = new QLabel("SCORE",this);
-    score_label->setGeometry(20,20,200,50);
+    score_label->setGeometry(70,20,200,50);
     score_label->setAlignment(Qt::AlignCenter);
     score_label->setFont(font);
+    score_label->setPalette(palette);
 
     best_label = new QLabel("BEST",this);
-    best_label->setGeometry(240,20,200,50);
+    best_label->setGeometry(310,20,200,50);
     best_label->setAlignment(Qt::AlignCenter);
     best_label->setFont(font);
+    best_label->setPalette(palette);
 
     now_score = new QLabel("0",this);
-    now_score->setGeometry(20,70,200,50);
+    now_score->setGeometry(70,70,200,50);
     now_score->setAlignment(Qt::AlignCenter);
     now_score->setFont(font);
+    now_score->setPalette(palette);
 
     best_score = new QLabel("0",this);
-    best_score->setGeometry(240,70,200,50);
+    best_score->setGeometry(310,70,200,50);
     best_score->setAlignment(Qt::AlignCenter);
     best_score->setFont(font);
+    best_score->setPalette(palette);
 
     restart_btn = new QPushButton("RESTART",this);
-    restart_btn->setGeometry(430,30,200,100);
+    restart_btn->setGeometry(550,350,200,100);
     restart_btn->setFont(font);
     restart_btn->setStyleSheet("color:#FAF8F1;background-color:#917963");
     restart_btn->setFocusPolicy(Qt::NoFocus);
                 
     emoji_btn = new QPushButton("Funny Mode",this);
-    emoji_btn->setGeometry(500,200,200,100);
+    emoji_btn->setGeometry(550,200,200,100);
     emoji_btn->setFont(font);
     emoji_btn->setStyleSheet("color:#FAF8F1;background-color:#917963");
     emoji_btn->setFocusPolicy(Qt::NoFocus);

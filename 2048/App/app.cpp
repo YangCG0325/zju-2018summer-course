@@ -18,7 +18,7 @@ void App::run()
     view.set_ptrDirection(viewmodel->getDirectionCommand());
 
 
-    viewmodel->Exec_layout_command(1);  //set game mode
+    viewmodel->layout_command(1);  //set game mode
     viewmodel->AddPropertyNotification(view.getPtrViewProSink());  //property change ?
     viewmodel->AddCommandNotification(view.getPtrViewSetSink());  //command ?
     viewmodel->AddCommandNotification(view.getDirectionSink());

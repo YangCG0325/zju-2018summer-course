@@ -13,6 +13,6 @@ void LayoutCommand::SetParameter(const int &param)  //simply assign
 
 void LayoutCommand::Exec()
 {
-    ptr_Viewmodel_->Exec_layout_command(mode);  //change mode
+    ptr_Viewmodel_->layout_command(mode);  //change mode
     ptr_Viewmodel_->Fire_OnCommandComplete("layoutcommand", true); //execute successfully
 }

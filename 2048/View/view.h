@@ -11,7 +11,6 @@
 #include "Common/square.h"
 #include "Common/etlbase.h"
 #include "View/ViewSinks/viewprosinks.h"
-#include "View/ViewSinks/viewsetsink.h"
 #include "View/ViewSinks/directionsink.h"
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
@@ -42,7 +41,6 @@ public:
     void set_ptrDirection(std::shared_ptr<ICommandBase> ptrDirection);
 
     std::shared_ptr<IPropertyNotification> getPtrViewProSink(void); //return two command pointer ?
-    std::shared_ptr<ICommandNotification> getPtrViewSetSink(void);
     std::shared_ptr<ICommandNotification> getDirectionSink(void);
 
     void paintEvent(QPaintEvent*);

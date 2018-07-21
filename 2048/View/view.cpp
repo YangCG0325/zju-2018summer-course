@@ -330,6 +330,7 @@ int View::get_color(int n)
 
 void View::restart_btn_press()
 {
+    emoji=0;
     _ptrCommand->SetParameter(1);
     _ptrCommand->Exec();
     paint_square();

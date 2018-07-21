@@ -13,6 +13,6 @@ void DirectionCommand::SetParameter(const int &param)
 
 void DirectionCommand::Exec()
 {
-    ptr_Viewmodel_->Exec_Direction_command(dir);
+    ptr_Viewmodel_->Direction_command(dir);
     ptr_Viewmodel_->Fire_OnCommandComplete("Direction", true);
 }

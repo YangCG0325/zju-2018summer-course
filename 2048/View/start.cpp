@@ -22,7 +22,7 @@ startwindow::startwindow(QWidget *parent) :
 //    logo_label->setAlignment(Qt::AlignCenter);
 //    logo_label->setStyleSheet("color:#746D65");
     logo_label = new QLabel(this);
-    logo_label->setPixmap(QPixmap("C:\\projects\\game\\2048\\musicgif\\logo.png"));
+    logo_label->setPixmap(QPixmap("://musicgif/logo.png"));
     logo_label->setGeometry(40,0,400,150);
 
     font.setPixelSize(26);

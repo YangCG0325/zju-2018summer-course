@@ -30,12 +30,12 @@ std::shared_ptr<ICommandBase> Viewmodel::getLayoutCommand()
     return std::static_pointer_cast<ICommandBase>(sp_LayoutCommand_);
 }
 
-void Viewmodel::layout_command(int mode)  //change mode
+void Viewmodel::layout(int mode)  //change mode
 {
     sp_model_->newLayout(mode);
 }
 
-void Viewmodel::Direction_command(int dir)
+void Viewmodel::Direction(int dir)
 {
     sp_model_->DirectionChange(dir);
 }

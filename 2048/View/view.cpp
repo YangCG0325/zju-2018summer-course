@@ -230,8 +230,8 @@ void View::paint_square()
             else
             {
                 square[4*i+j]->setGeometry((100+(90*j)),(200+(90*i)),80,80);
-                square[4*i+j]->setText(QString::number(this->_spMatrix->getChildNumber(i,j)));
-                palette.setColor(QPalette::Background,colors[get_color(this->_spMatrix->getChildNumber(i,j))]);
+                square[4*i+j]->setText(QString::number(std::abs(this->_spMatrix->getChildNumber(i,j))));
+                palette.setColor(QPalette::Background,colors[get_color(std::abs(this->_spMatrix->getChildNumber(i,j)))]);
                 square[4*i+j]->setAutoFillBackground(true);
                 square[4*i+j]->setAlignment(Qt::AlignCenter);
                 square[4*i+j]->setPalette(palette);

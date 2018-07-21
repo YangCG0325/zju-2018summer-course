@@ -132,6 +132,17 @@ public:
     {
         return Win;
     }
+
+    void resetNumber()
+    {
+        int i, j;
+        for(i=0;i<4;i++)
+            for(j=0;j<4;j++)
+            {
+                gamebody[i][j].setNumber(std::abs(gamebody[i][j].getNumber()));
+            }
+    }
+
     void ResetMoode1()  //classic mode reset
     {
         int i, j, x, y;

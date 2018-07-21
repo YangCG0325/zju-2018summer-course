@@ -105,7 +105,7 @@ View::View(QWidget *parent) :  //ctor
     _ptrViewProSink = std::make_shared<ViewProSinks>(ViewProSinks(this));
     _ptrViewSetSink = std::make_shared<ViewSetSink>(ViewSetSink(this));
     _ptrDirectionSink = std::make_shared<DirectionSink>(DirectionSink(this));
-    setMatrix(NULL);
+    
 }
 
 View::~View()

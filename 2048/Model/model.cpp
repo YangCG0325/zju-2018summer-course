@@ -346,5 +346,6 @@ void Model::DirectionChange(int dir)
             }
         }
     }
+    Fire_OnPropertyChanged("Square");
 
 }

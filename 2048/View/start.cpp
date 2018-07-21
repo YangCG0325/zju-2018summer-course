@@ -15,7 +15,7 @@ startwindow::startwindow(QWidget *parent) :
         
     this->setWindowTitle("2048");
 
-    logo_label=new QLabel("2048",this);
+   // logo_label=new QLabel("2048",this);
    // logo_label->setPixmap(QPixmap("./logo.png"));
 //     logo_label->setGeometry(0,0,400,150);
 //     logo_label->setFont(font);

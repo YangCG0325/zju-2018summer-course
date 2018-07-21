@@ -12,13 +12,20 @@ startwindow::startwindow(QWidget *parent) :
     font.setFamily("Arial");
     font.setBold(true);
     font.setPixelSize(65);
+        
+    this->setWindowTitle("2048");
 
     logo_label=new QLabel("2048",this);
    // logo_label->setPixmap(QPixmap("./logo.png"));
-    logo_label->setGeometry(0,0,400,150);
-    logo_label->setFont(font);
-    logo_label->setAlignment(Qt::AlignCenter);
-    logo_label->setStyleSheet("color:#746D65");
+//     logo_label->setGeometry(0,0,400,150);
+//     logo_label->setFont(font);
+//     logo_label->setAlignment(Qt::AlignCenter);
+//     logo_label->setStyleSheet("color:#746D65");
+    
+    logo_label = new QLabel(this);
+    logo_label->setPixmap(QPixmap("://musicgif/logo.png"));
+    logo_label->setGeometry(40,0,400,150);
+
 
     font.setPixelSize(26);
     start_btn=new QPushButton("START",this);

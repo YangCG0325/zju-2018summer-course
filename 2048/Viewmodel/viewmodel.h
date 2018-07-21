@@ -17,8 +17,8 @@ public:
     std::shared_ptr<SquareMatrix> getMatrix();
     std::shared_ptr<ICommandBase> getLayoutCommand();
     std::shared_ptr<ICommandBase> getDirectionCommand();
-    void layout_command(int mode);
-    void Direction_command(int dir);
+    void layout(int mode);
+    void Direction(int dir);
 private:
     std::shared_ptr<Model> sp_model_;
     std::shared_ptr<ViewmodelSink> sp_ViewmodelSink_;

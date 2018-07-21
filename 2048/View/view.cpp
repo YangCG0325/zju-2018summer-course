@@ -22,8 +22,8 @@ View::View(QWidget *parent) :  //ctor
     this->setFocusPolicy(Qt::StrongFocus);
 
     QPalette palette(this->palette());
-    palette.setBrush(QPalette::Background,QBrush(QPixmap("://musicgif/background.jpg")));
-   // palette.setColor(QPalette::Background,QColor(255,222,173));
+    //palette.setBrush(QPalette::Background,QBrush(QPixmap("://musicgif/background.jpg")));
+    palette.setColor(QPalette::Background,QColor(255,222,173));
     this->setPalette(palette);
 
 
@@ -32,32 +32,32 @@ View::View(QWidget *parent) :  //ctor
     font.setBold(true);
     font.setPixelSize(30);
                 
-    palette.setBrush(QPalette::Background, Qt::NoBrush);
-    palette.setColor(QPalette::WindowText, QColor(255,248,220));
+    //palette.setBrush(QPalette::Background, Qt::NoBrush);
+    //palette.setColor(QPalette::WindowText, QColor(255,248,220));
 
     score_label = new QLabel("SCORE",this);
     score_label->setGeometry(70,20,200,50);
     score_label->setAlignment(Qt::AlignCenter);
     score_label->setFont(font);
-    score_label->setPalette(palette);
+    //score_label->setPalette(palette);
 
     best_label = new QLabel("BEST",this);
     best_label->setGeometry(310,20,200,50);
     best_label->setAlignment(Qt::AlignCenter);
     best_label->setFont(font);
-    best_label->setPalette(palette);
+    //best_label->setPalette(palette);
 
     now_score = new QLabel("0",this);
     now_score->setGeometry(70,70,200,50);
     now_score->setAlignment(Qt::AlignCenter);
     now_score->setFont(font);
-    now_score->setPalette(palette);
+    //now_score->setPalette(palette);
 
     best_score = new QLabel("0",this);
     best_score->setGeometry(310,70,200,50);
     best_score->setAlignment(Qt::AlignCenter);
     best_score->setFont(font);
-    best_score->setPalette(palette);
+    //best_score->setPalette(palette);
 
     restart_btn = new QPushButton("RESTART",this);
     restart_btn->setGeometry(550,350,200,100);

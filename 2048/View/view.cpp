@@ -16,6 +16,7 @@ View::View(QWidget *parent) :  //ctor
 {
     ui->setupUi(this);
     this->setFixedSize(800,600);
+    this->setWindowTitle(QString("2048"));
     this->setFocusPolicy(Qt::StrongFocus);
 
     QPalette palette(this->palette());

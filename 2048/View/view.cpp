@@ -84,7 +84,7 @@ View::View(QWidget *parent) :  //ctor
 
     for(int i=0;i<11;i++)
     {
-        pic[i]=new QMovie(tr("C:\\Users\\apple\\Documents\\game\\musicgif\\%1.gif").arg(i+2));
+        pic[i]=new QMovie(tr("C:\\projects\\game\\2048\\musicgif\\%1.gif").arg(i+2));
         pic[i]->setScaledSize(QSize(80,80));
      }
 

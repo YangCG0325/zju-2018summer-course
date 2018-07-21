@@ -26,5 +26,5 @@ deploy:
     auth_token:
         secure: ps1KG3loDBJzc86Bgl+nBYq64zXdrBYIQKZ2OSU3J6xZfkBygncer469DbnqUYMA 
     on:
-      branch: master 
+      branch: emoji 
     IsGithubRelease: true 

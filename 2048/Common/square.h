@@ -150,8 +150,8 @@ public:
             x = qrand()%4;
             y = qrand()%4;
         }
-        setChildNumber(i,j,2);
-        setChildNumber(x,y,2);
+        setChildNumber(i,j,-2);
+        setChildNumber(x,y,-2);
         Score=0;
         Win = 0;
         Lose = 0;

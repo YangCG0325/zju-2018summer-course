@@ -20,7 +20,6 @@ void App::run()
 
     viewmodel->layout_command(1);  //set game mode
     viewmodel->AddPropertyNotification(view.getPtrViewProSink());  //property change ?
-    viewmodel->AddCommandNotification(view.getPtrViewSetSink());  //command ?
     viewmodel->AddCommandNotification(view.getDirectionSink());
     view.paint_square();
 

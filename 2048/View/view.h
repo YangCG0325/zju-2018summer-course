@@ -15,6 +15,7 @@
 #include "View/ViewSinks/directionsink.h"
 #include <QPropertyAnimation>
 #include <QParallelAnimationGroup>
+#include <QMovie>
 
 class ViewProSinks;
 class ViewSetSink;
@@ -50,6 +51,7 @@ public:
     void paint_square();
 private slots:
     void restart_btn_press();
+    void emoji_btn_press();
 private:
     Ui::View *ui;
     std::shared_ptr<SquareMatrix> _spMatrix;
@@ -70,6 +72,11 @@ private:
     QParallelAnimationGroup group;
     QPropertyAnimation *comeup[16];
     QParallelAnimationGroup GroupComeUp;
+    
+    
+    QPushButton *emoji_btn;
+    QMovie *pic[11];
+    static int emoji;
 };
 
 #endif // VIEW_H

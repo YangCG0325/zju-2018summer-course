@@ -67,6 +67,12 @@ View::View(QWidget *parent) :  //ctor
         anim[i] = new QPropertyAnimation(square[i],"pos");
         group.addAnimation(anim[i]);
     }
+    
+    for(i=0;i<16;i++)
+    {
+        comeup[i] = new QPropertyAnimation(square[i],"geometry");
+        GroupComeUp.addAnimation(comeup[i]);
+    }
 
     connect(restart_btn,SIGNAL(clicked(bool)),this,SLOT(restart_btn_press()));
 
@@ -231,8 +237,21 @@ void View::paint_square()
                 square[4*i+j]->setPalette(palette);
                 square[4*i+j]->setFont(font);
                 square[4*i+j]->show();
+                if(_spMatrix->getChildNumber(i,j)<0)
+                {
+                    comeup[4*i+j]->setDuration(200);
+                    comeup[4*i+j]->setStartValue(QRect((100+(90*j))-10,(200+(90*i))-10,100,100));
+                    comeup[4*i+j]->setEndValue(QRect((100+(90*j)),(200+(90*i)),80,80));
+                }
+                else
+                {
+                    comeup[4*i+j]->setDuration(200);
+                    comeup[4*i+j]->setStartValue(QRect((100+(90*j)),(200+(90*i)),80,80));
+                    comeup[4*i+j]->setEndValue(QRect((100+(90*j)),(200+(90*i)),80,80));
+                }
             }
         }
+    GroupComeUp.start();
     if(_spMatrix->LoseSignal()==1)
     {
         QMessageBox MSG;

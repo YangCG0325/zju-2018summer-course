@@ -211,11 +211,6 @@ std::shared_ptr<IPropertyNotification> View::getPtrViewProSink(void)  //return p
     return std::static_pointer_cast<IPropertyNotification>(_ptrViewProSink);
 }
 
-std::shared_ptr<ICommandNotification> View::getPtrViewSetSink(void)  //return command notifycation
-{
-
-    return std::static_pointer_cast<ICommandNotification>(_ptrViewSetSink);
-}
 
 std::shared_ptr<ICommandNotification> View::getDirectionSink(void)
 {

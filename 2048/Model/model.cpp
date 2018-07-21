@@ -37,6 +37,7 @@ void Model::DirectionChange(int dir)
     int postemp[4];
 
     sp_Matrix->resetPos();
+    sp_Matrix->resetNumber();
 
     if(dir==1)  //down
     {
@@ -78,9 +79,9 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1]&&array[j]!=0)  //more than 2 bricks, has near two equal, can move
                     {
                         flag=1;
-                        array[j]=array[j]*2;
+                        array[j] = -array[j]*2;
                         sp_Matrix->setPos(postemp[j+1],4*(3-j)+i);
-                        sp_Matrix->changeScore(array[j]);
+                        sp_Matrix->changeScore(std::abs(array[j]));
                         for(l =j+1;l<3;l++)
                         {
                             array[l]=array[l+1];
@@ -141,9 +142,9 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1]&&array[j]!=0)
                     {
                         flag=1;
-                        array[j]=array[j]*2;
+                        array[j] = -array[j]*2;
                         sp_Matrix->setPos(postemp[j+1],4*(j)+i);
-                        sp_Matrix->changeScore(array[j]);
+                        sp_Matrix->changeScore(std::abs(array[j]));
                         for(l =j+1;l<3;l++)
                         {
                             array[l]=array[l+1];
@@ -204,9 +205,9 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1]&&array[j]!=0)
                     {
                         flag=1;
-                        array[j]=array[j]*2;
+                        array[j] = -array[j]*2;
                         sp_Matrix->setPos(postemp[j+1],4*i+j);
-                        sp_Matrix->changeScore(array[j]);
+                        sp_Matrix->changeScore(std::abs(array[j]));
                         for(l =j+1;l<3;l++)
                         {
                             array[l]=array[l+1];
@@ -268,9 +269,9 @@ void Model::DirectionChange(int dir)
                     if(array[j]==array[j+1]&&array[j]!=0)
                     {
                         flag=1;
-                        array[j]=array[j]*2;
+                        array[j] = -array[j]*2;
                         sp_Matrix->setPos(postemp[j+1],4*i+3-j);
-                        sp_Matrix->changeScore(array[j]);
+                        sp_Matrix->changeScore(std::abs(array[j]));
                         for(l =j+1;l<3;l++)
                         {
                             array[l]=array[l+1];
@@ -305,9 +306,9 @@ void Model::DirectionChange(int dir)
         }
         num = qrand()%30;
         if(num<=20)
-            sp_Matrix->setChildNumber(x, y, 2);
+            sp_Matrix->setChildNumber(x, y, -2);
         else
-            sp_Matrix->setChildNumber(x, y, 4);
+            sp_Matrix->setChildNumber(x, y, -4);
         for(i=0;i<4;i++)
             for(j=0;j<4;j++)
             {
